@@ -1,0 +1,2 @@
+# Read .ruby-version file for asdf-ruby
+legacy_version_file = yes

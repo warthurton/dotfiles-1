@@ -227,7 +227,6 @@ PATH=$HOME/.bin:$PATH
 # * ~/.rbenv/shims is before /usr/local/bin etc
 # * I don't know why it has to be in this order but putting shims before stubs
 #   breaks stubs ("You have activated the wrong version of rake" error)
-eval "$(rbenv init -)"
 PATH=./bin/stubs:$PATH
 
 # }}}
@@ -353,6 +352,10 @@ add_subdirs_to_cdpath "$HOME/code/thoughtbot"
 export PROJECT_DIRECTORIES=$CDPATH
 # }}}
 
+# asdf version manager (ruby, node, etc)
+[[ -r /usr/local/opt/asdf/asdf.sh ]] && source /usr/local/opt/asdf/asdf.sh
+. /usr/local/etc/bash_completion.d/asdf.bash
+
 # Prompt {{{
 
 # Prompt colors {{{
@@ -393,9 +396,17 @@ prompt_spaced() { [[ -n "$1" ]] && print " $@" }
 # ~/foo is shown as ~/foo (not /Users/gabe/foo)
 prompt_shortened_path() { print "$(prompt_purple "%2~")" }
 
+prompt_unstyled_short_ruby_version(){
+  # "version 2.4.2 is not installed for ruby" -> "2.4.2 (missing)"
+  asdf current ruby | \
+    sed -E \
+      -e 's/version (.+) is not installed/\1 (missing)/g' \
+      -e 's/No version set for ruby/[None set]/g' \
+      -e 's/^(.+) \(set by .+\)/\1/g'
+}
+
 prompt_ruby_version() {
-  local version=$(rbenv version-name)
-  prompt_magenta "$version"
+  prompt_magenta "$(prompt_unstyled_short_ruby_version)"
 }
 # }}}
 

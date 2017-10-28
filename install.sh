@@ -94,3 +94,18 @@ for setup in tag-*/setup; do
   info "Running setup for ${dir#tag-}..."
   . "$setup"
 done
+
+# asdf
+if ! asdf plugin-list | grep -Fq ruby; then
+  asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
+fi
+
+if ! asdf plugin-list | grep -Fq nodejs; then
+  asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+fi
+
+# Migrate from rbenv -> asdf
+if [ -d ~/.rbenv/versions ]; then
+  mkdir -p /usr/local/opt/asdf/installs/ruby
+  mv ~/.rbenv/versions/* /usr/local/opt/asdf/installs/ruby/
+fi

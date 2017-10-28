@@ -94,3 +94,7 @@ brew 'yarn'
 brew 'nvm'
 
 brew 'parallel'
+
+# asdf version manager
+# https://github.com/asdf-vm/asdf
+brew 'asdf'
