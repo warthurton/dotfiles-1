@@ -95,7 +95,7 @@ for setup in tag-*/setup; do
   . "$setup"
 done
 
-# asdf
+echo "Installing asdf version manager..."
 if ! asdf plugin-list | grep -Fq ruby; then
   asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
 fi
@@ -105,12 +105,12 @@ if ! asdf plugin-list | grep -Fq nodejs; then
 fi
 
 # Migrate from rbenv -> asdf
-if [ -d ~/.rbenv/versions ]; then
+if [ -d ~/.rbenv/versions ] && ! [ -d /usr/local/opt/asdf/installs/ruby ]; then
   mkdir -p /usr/local/opt/asdf/installs/ruby
   mv ~/.rbenv/versions/* /usr/local/opt/asdf/installs/ruby/
 fi
 
 # cd to "$HOME" so that `asdf install` will read the `.tool-versions` file there.
-pushd "$HOME"
+pushd "$HOME" > /dev/null
 asdf install
-popd
+popd > /dev/null

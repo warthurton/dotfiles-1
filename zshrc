@@ -222,11 +222,6 @@ PATH=~/.local/bin:$PATH
 
 PATH=$HOME/.bin:$PATH
 
-# The goal here is:
-# * ./bin/stubs is before rbenv shims
-# * ~/.rbenv/shims is before /usr/local/bin etc
-# * I don't know why it has to be in this order but putting shims before stubs
-#   breaks stubs ("You have activated the wrong version of rake" error)
 PATH=./bin/stubs:$PATH
 
 # }}}
