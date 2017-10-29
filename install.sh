@@ -109,3 +109,8 @@ if [ -d ~/.rbenv/versions ]; then
   mkdir -p /usr/local/opt/asdf/installs/ruby
   mv ~/.rbenv/versions/* /usr/local/opt/asdf/installs/ruby/
 fi
+
+# cd to "$HOME" so that `asdf install` will read the `.tool-versions` file there.
+pushd "$HOME"
+asdf install
+popd

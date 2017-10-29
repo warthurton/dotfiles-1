@@ -91,7 +91,6 @@ brew 'tldr'
 
 brew 'node'
 brew 'yarn'
-brew 'nvm'
 
 brew 'parallel'
 

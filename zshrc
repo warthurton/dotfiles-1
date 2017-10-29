@@ -353,6 +353,9 @@ export PROJECT_DIRECTORIES=$CDPATH
 # }}}
 
 # asdf version manager (ruby, node, etc)
+# I truly do not want to deal with the hassle of GPG, so don't fail to install
+# when GPG isn't set up.
+export NODEJS_CHECK_SIGNATURES=no
 [[ -r /usr/local/opt/asdf/asdf.sh ]] && source /usr/local/opt/asdf/asdf.sh
 . /usr/local/etc/bash_completion.d/asdf.bash
 
